@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   });
 
 test('login com sucesso', async ({page}) => { 
-    await loginPage.fazerLogin('tomsmith', 'SuperSecretPassword!');
+    await loginPage.fazerLogin(process.env.USERNAME!, process.env.PASSWORD!);
     await expect(page.locator('.flash.success')).toBeVisible();
 });
 
