@@ -15,3 +15,26 @@ test.describe('API - JSONPlaceholder', () => {
     });
 
 });
+
+test.describe('API com Mock', () => {
+
+    test('GET /posts/1 com resposta mockada', async ({ page }) => {
+        await page.route('**/posts/1', async route => {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({ id: 1, title: 'Post falso', userId: 99 }),
+            });
+        });
+
+        await page.goto('about:blank');
+        const body = await page.evaluate(async () => {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+            return response.json();
+        });
+
+        expect(body.title).toBe('Post falso');
+        expect(body.userId).toBe(99);
+    });
+
+});
