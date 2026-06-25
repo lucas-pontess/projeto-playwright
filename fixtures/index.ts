@@ -8,7 +8,7 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
     loginPage: async ({page}, use) => {
         const loginPage = new LoginPage(page);
-        await page.goto('https://the-internet.herokuapp.com/login');
+        await page.goto('/login');
         await use(loginPage);
     },
 });

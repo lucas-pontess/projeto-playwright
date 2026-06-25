@@ -8,8 +8,8 @@ export class LoginPage {
 
 
     async fazerLogin(usuario: string, senha: string){
-        await this.page.fill("#username", usuario);
-        await this.page.fill("#password", senha);
-        await this.page.click("button[type='submit']");
+        await this.page.getByLabel("Username").fill(usuario);
+        await this.page.getByLabel("Password").fill(senha);
+        await this.page.getByRole("button",{name: "Login"}).click();
         }
     }
