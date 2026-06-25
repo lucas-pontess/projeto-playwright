@@ -2,10 +2,18 @@ import {test, expect} from '../fixtures';
 
 test.describe('Login com sucesso', () => {
     test('login com sucesso', async ({ page, loginPage, securePage }) => {
-        await loginPage.fazerLogin(process.env.USERNAME!, process.env.PASSWORD!);
-        await securePage.verificarPaginaCarregada();
-        await securePage.fazerLogout();
-        await expect(page).toHaveURL('/login');
+        await test.step('Fazer login', async () => {
+            await loginPage.fazerLogin(process.env.USERNAME!, process.env.PASSWORD!);
+        });
+
+        await test.step('Verificar página segura', async () => {
+            await securePage.verificarPaginaCarregada();
+        });
+
+        await test.step('Fazer logout e verificar redirecionamento', async () => {
+            await securePage.fazerLogout();
+            await expect(page).toHaveURL('/login');
+        });
     });
 });
 
