@@ -1,12 +1,15 @@
 import {test, expect} from '../fixtures';
 
 test.describe('Login com sucesso', () => {
-    test('login com sucesso', async ({page, loginPage}) => { 
+    test('login com sucesso', async ({ page, loginPage, securePage }) => {
         await loginPage.fazerLogin(process.env.USERNAME!, process.env.PASSWORD!);
-        await expect(page.locator('.flash.success')).toContainText("You logged into a secure area!");
-        await expect(page).toHaveURL('/secure');
+        await securePage.verificarPaginaCarregada();
+        await securePage.fazerLogout();
+        await expect(page).toHaveURL('/login');
     });
 });
+
+
 
 test.describe('Login com credenciais inválidas', () => {
     const credenciaisInvalidas = [
