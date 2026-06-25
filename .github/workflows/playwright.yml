@@ -18,7 +18,9 @@ jobs:
           node-version: 18
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
+        env:
+          npm_config_registry: https://registry.npmjs.org
 
       - name: Instalar navegadores do Playwright
         run: npx playwright install --with-deps
